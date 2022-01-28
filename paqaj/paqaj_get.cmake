@@ -7,7 +7,6 @@ include(${CMAKE_CURRENT_LIST_DIR}/paqaj_fetch_findpackage.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/paqaj_fetch_subdir.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/paqaj_fetch_remote.cmake)
 
-
 # Retrieve a package
 # 
 # Controlled by paqaj_settings_* variables
@@ -38,7 +37,7 @@ function(paqaj_get pname)
     endif()
 
     # Try to fetch via find_package
-    if (paqaj_settings_fetch_findpackage)
+    if (paqaj_settings_fetch_findpackage AND NOT ${prefix}_NO_LOCAL)
         paqaj_fetch_findpackage(${pname} _fetch_success _version ${ARGN})
         if (_fetch_success)
             message(CHECK_PASS "found (local package, version '${_version}')")
@@ -47,7 +46,7 @@ function(paqaj_get pname)
     endif()
 
     # Try to fetch via add_subdirectory
-    if (paqaj_settings_fetch_subdir)
+    if (paqaj_settings_fetch_subdir AND NOT ${prefix}_NO_SUBDIR)
         paqaj_fetch_subdir(${pname} _fetch_success _version ${ARGN})
         if (_fetch_success)
             message(CHECK_PASS "found (subdirectory, version '${_version}')")

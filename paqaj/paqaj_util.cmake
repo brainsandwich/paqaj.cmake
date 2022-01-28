@@ -44,6 +44,8 @@ endfunction()
 function(_paqaj_get_args options onevalued multivalued)
     set(${options}
         REQUIRED
+        NO_SUBDIR
+        NO_LOCAL
             PARENT_SCOPE
     )
     set(${onevalued}
